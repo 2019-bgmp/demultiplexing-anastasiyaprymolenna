@@ -65,28 +65,36 @@ index_dict = get_indexes(Index_file)
 	
 open each of the four files individually for reading
 	write files will be opened in the loops as things are written to them
-read in four lines at a time from both files at once
+
+Include a dictionary with keys as all the indexes in the file plus unknown and hopped indexes
+	increment each key in the dictionary or add a hopped key if it doesnt exist in the following if statements
+
+read in four lines at a time from all files at once
 take the second line from the index files that contains the Index read and compare 
-	if the quality of an index is below a determnined threshold (LOW QUALITY)
-		write the header line concatenated with 'index1-index2' to the unknown forward and reverse file
-		write the sequence, +, and quality line to the respective unknown forward or reverse file
-	if the two indexes match a key,value pair in the dictionary (MATCHED)
-		write the header line concatenated with 'index1-index2' to forward and reverse files named after the indexes 	#####maybe write a
-		write the sequence, +, and quality line to their respective forward and reverse files named after the indexes	#####def function for this
 	if the index sequence line contains an 'N' (UNDETERMINED)
 		write the header line concatenated with 'index1-index2' to the unknown forward and reverse file
 		write the sequence, +, and quality line to the respective unknown forward or reverse file
-	if the either of the indexes matches a key or value in the dictionary that is not its direct dictionary pair (INDEX HOPPED)
-		write the header line concatenated with 'index1-index2' to the index-hopped forward and reverse file
-		write the sequence, +, and quality line to the respective unknown forward or reverse file
-	if one of the indexes doesn't match any dictionary key or value and doesnt contain 'N' (LOW QUALITY)
+		increment unknown counter in dictionary
+	if the quality of an index is below a determnined threshold (LOW QUALITY)
 		write the header line concatenated with 'index1-index2' to the unknown forward and reverse file
 		write the sequence, +, and quality line to the respective unknown forward or reverse file
-		
+		Increment unknown counter in dictionary 
+	if the two indexes match a key,value pair in the dictionary (MATCHED)
+		write the header line concatenated with 'index1-index2' to forward and reverse files named after the indexes 	#####maybe write a
+		write the sequence, +, and quality line to their respective forward and reverse files named after the indexes	#####def function for this
+		increment index1 key in dictionary 
+	if both of the indexes matches a key in the dictionary and they are not each others direct dictionary pairs (INDEX HOPPED)
+		write the header line concatenated with 'index1-index2' to the index-hopped forward and reverse file
+		write the sequence, +, and quality line to the respective unknown forward or reverse file
+		create key in dictionary witht the hopped index or add to it if it exists
+	if one of the indexes doesn't match any dictionary key and (already doesnt contain 'N') (LOW QUALITY)
+		write the header line concatenated with 'index1-index2' to the unknown forward and reverse file
+		write the sequence, +, and quality line to the respective unknown forward or reverse file
+		Increment unknown counter in dictionary
+
 close each file that was open for reading
 
-count the number of records in each of the forward files 
-	output counts in a table with respect to the file that it came from 
+Output all the counts in the index counting dictionary  
 	
 
 
