@@ -1,0 +1,96 @@
+PROBLEM:
+	The reads that come off a sequencer arent perfect. They might have low quality, undetermined bases, or index hopping.
+	This algorithm will filter the FASTQ files that come off the sequencer and output files separated into accepted and 
+	confirmed index defined files for the forward and reverse reads
+
+
+
+
+	
+Algorithm GOAL:
+
+Input: 
+	FASTQ files (2 with biological reads, 2 with index reads)
+	24 known indexes
+
+Do:
+	Demultiplex reads by index-pair
+
+Output: 
+	one forward FASTQ file (per matching index pair)
+	one reverse FASTQ file (per matching index pair)
+	two (F and R) FASTQ files for non-matching index pairs (ones that index hopped)
+	two (F and R) FASTQ fules for unknown/low quality indexes
+	
+ADD sequence of the index-pair to the header of BOTH reads in all files 
+	ie. Index1-Index2
+
+ALSO:
+	report number of read-pairs with properly matched indexes per index-pair
+	report number of read pairs that index hopped
+	report number of read pairs with unknown indexes
+
+	
+	
+	
+	
+	
+UNIT TESTS of all three cases and the expected output submitted seperately.
+
+
+
+
+
+
+
+
+PSEUDOCODE AS FOLLOWS:
+
+Argparse to allow options for user input:
+	User input: R1(Read1), R2(Index1), R3(Index3), R4(Index4), Known_Index_File
+
+def rev_comp(DNA_seq):
+	''' Take DNA string and return its reverse compliment)'''
+	Take the reverse compliment of DNA (use dictionary to assign base pairs)
+	return DNA_rev_comp
+
+def get_indexes(Known_Index_File):
+	''' Take the entire .tsv file of known indexes and put all indexes  and their reverse complements into a dictionary'''
+	For each line in the file, assign the index (contained in the second column) to a key
+	rev_comp(key) and assign that as the value for each key in the dictionary 
+	flip the key value pairs so rev comp is the key and OG index is the value, add these pairs to the dictionary
+	return index_dictionary
+
+index_dict = get_indexes(Index_file)
+	
+open each of the four files individually for reading
+	write files will be opened in the loops as things are written to them
+read in four lines at a time from both files at once
+take the second line from the index files that contains the Index read and compare 
+	if the quality of an index is below a determnined threshold (LOW QUALITY)
+		write the header line concatenated with 'index1-index2' to the unknown forward and reverse file
+		write the sequence, +, and quality line to the respective unknown forward or reverse file
+	if the two indexes match a key,value pair in the dictionary (MATCHED)
+		write the header line concatenated with 'index1-index2' to forward and reverse files named after the indexes 	#####maybe write a
+		write the sequence, +, and quality line to their respective forward and reverse files named after the indexes	#####def function for this
+	if the index sequence line contains an 'N' (UNDETERMINED)
+		write the header line concatenated with 'index1-index2' to the unknown forward and reverse file
+		write the sequence, +, and quality line to the respective unknown forward or reverse file
+	if the either of the indexes matches a key or value in the dictionary that is not its direct dictionary pair (INDEX HOPPED)
+		write the header line concatenated with 'index1-index2' to the index-hopped forward and reverse file
+		write the sequence, +, and quality line to the respective unknown forward or reverse file
+	if one of the indexes doesn't match any dictionary key or value and doesnt contain 'N' (LOW QUALITY)
+		write the header line concatenated with 'index1-index2' to the unknown forward and reverse file
+		write the sequence, +, and quality line to the respective unknown forward or reverse file
+		
+close each file that was open for reading
+
+count the number of records in each of the forward files 
+	output counts in a table with respect to the file that it came from 
+	
+
+
+	
+	
+	
+
