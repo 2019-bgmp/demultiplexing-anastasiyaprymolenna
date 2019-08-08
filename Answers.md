@@ -15,6 +15,8 @@ Part 1:
 
 2c)How many indexes have undetermined (N) base calls? (Utilize your command line tool knowledge. Submit the command you used. CHALLENGE: use a one-line command
 
-Command: $ zcat /path/file | awk 'NR%4==2' | grep 'N' | wc -l
+ Command: $ zcat /path/file | awk 'NR%4==2' | grep 'N' | wc -l
+ 
  Index 1 undetermined count = 3976613
+ 
  Index 2 undetermined count = 3328051
