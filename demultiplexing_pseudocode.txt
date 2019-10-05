@@ -47,7 +47,7 @@ UNIT TESTS of all three cases and the expected output submitted seperately.
 PSEUDOCODE AS FOLLOWS:
 
 Argparse to allow options for user input:
-	User input: R1(Read1), R2(Index1), R3(Index3), R4(Index4), Known_Index_File
+	User input: R1(Read1), R2(Index1), R3(Index2), R4(Read2), Known_Index_File
 
 def rev_comp(DNA_seq):
 	''' Take DNA string and return its reverse compliment)'''
