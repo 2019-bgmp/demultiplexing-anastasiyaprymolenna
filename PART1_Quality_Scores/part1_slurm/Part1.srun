@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#SBATCH --account=bgmp          ### SLURM account which will be charged for the job
+#SBATCH --partition=bgmp        ### Partition (like a queue in PBS)
+#SBATCH --job-name=Part1      ### Job Name
+#SBATCH --output=Part1.out         ### File in which to store job output
+#SBATCH --error=Part1.err          ### File in which to store job error messages
+#SBATCH --time=0-16:00:00       ### Wall clock time limit in Days-HH:MM:SS
+#SBATCH --nodes=1               ### Node count required for the job
+#SBATCH --ntasks-per-node=1     ### Nuber of tasks to be launched per Node
+#SBATCH --cpus-per-task=1       ### Number of cpus (cores) per task
+#SBATCH --mail-user=aprymole@uoregon.edu
+#SBATCH --mail-type=ALL
+
+/usr/bin/time -v ./q_score_dist.py -f /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz -p R1
+/usr/bin/time -v ./q_score_dist.py -f /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R2_001.fastq.gz -p I1
+/usr/bin/time -v ./q_score_dist.py -f /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz -p I2
+/usr/bin/time -v ./q_score_dist.py -f /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz -p R2
