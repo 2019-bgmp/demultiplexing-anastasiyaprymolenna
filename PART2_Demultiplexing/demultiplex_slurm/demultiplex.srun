@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#SBATCH --account=bgmp          ### SLURM account which will be charged for the job
+#SBATCH --partition=bgmp        ### Partition (like a queue in PBS)
+#SBATCH --job-name=demultiplex      ### Job Name
+#SBATCH --output=demultiplex.out         ### File in which to store job output
+#SBATCH --error=demultiplex.err          ### File in which to store job error messages
+#SBATCH --time=0-12:00:00       ### Wall clock time limit in Days-HH:MM:SS
+#SBATCH --nodes=1               ### Node count required for the job
+#SBATCH --ntasks-per-node=1     ### Nuber of tasks to be launched per Node
+#SBATCH --cpus-per-task=1       ### Number of cpus (cores) per task
+#SBATCH --mail-user=aprymole@uoregon.edu
+#SBATCH --mail-type=ALL
+
+
+/usr/bin/time -v /projects/bgmp/aprymole/Bi622/demultiplex2.0.py \
+  -r1 /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz \
+  -r2 /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R2_001.fastq.gz \
+  -r3 /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz \
+  -r4 /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz \
+  -i /projects/bgmp/aprymole/Bi622/Test_files/barcodes.tsv
+
+#gzip *.fastq
